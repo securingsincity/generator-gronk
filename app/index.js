@@ -83,6 +83,8 @@ var GrunkGenerator = yeoman.generators.Base.extend({
     this.mkdir('app/scripts');
     this.mkdir('app/styles');
     this.mkdir('app/images');
+    this.mkdir('app/scripts/react_components');
+
 
     this.template('_package.json', 'package.json');
     this.template('_gulpfile.js', 'gulpfile.js');
@@ -90,6 +92,7 @@ var GrunkGenerator = yeoman.generators.Base.extend({
     this.template('main.scss', 'app/styles/main.scss');
 
     this.copy('index.html', 'app/index.html');
+    this.copy('react_components/main.jsx', 'app/scripts/react_components/main.jsx');
     this.copy('app.js', 'app/scripts/app.js');
     this.copy('favicon.ico', 'app/favicon.ico');
     this.copy('bowerrc', '.bowerrc');

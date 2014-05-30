@@ -1,14 +1,9 @@
 /** @jsx React.DOM */
+var React = require('react'),
+oboe = require('oboe');
+global.$  = require('jquery');
 
-var UIBuilder = React.createClass({
-    render: function() {
-        return (
-            <div className="ui-builder">
-                This is UI builder container.
-            </div>
-        );
-    }
-});
+var Main = require('./react_components/main.jsx')
 
 
-React.renderComponent(<UIBuilder />, document.getElementById("content"));
+React.renderComponent(<Main />, document.getElementById("content"));

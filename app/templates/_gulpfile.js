@@ -147,7 +147,7 @@ gulp.task('watch', ['html','styles','bower','scripts', 'connect'], function () {
     // gulp.watch('app/scripts/**/*.jsx', ['jsx', 'scripts']);
 
     // Watch .js files
-    gulp.watch('app/scripts/**/*.js', ['scripts']);
+    gulp.watch(['app/scripts/**/*.js','app/scripts/**/*.jsx'], ['scripts']);
 
     // Watch image files
     gulp.watch('app/images/**/*', ['images']);
