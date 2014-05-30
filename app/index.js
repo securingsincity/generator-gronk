@@ -11,7 +11,7 @@ var GrunkGenerator = yeoman.generators.Base.extend({
 
     this.on('end', function () {
       if (!this.options['skip-install']) {
-        this.npmInstall();
+        this.installDependencies();
       }
     });
   },

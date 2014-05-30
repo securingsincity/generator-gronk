@@ -12,10 +12,7 @@ gulp.task('styles', function () {
     return gulp.src('app/styles/main.scss')
         .pipe($.sass({
           includePaths: [
-            'public/styles/sass',
-            'public/styles/sass/libs',
-            'public/img',
-            'public/styles/fonts'
+          'app/bower_components'
           ],
           errLogToConsole: true
         }))
@@ -29,14 +26,14 @@ gulp.task('styles', function () {
 // Scripts
 gulp.task('scripts', function () {
     return  browserify({
-      entries: ['app/scripts/app.js']
+      entries: ['./app/scripts/app.js']
     })
     .bundle({debug:true})
     .pipe(source('app.js'))
-    .pipe($.jshint('.jshintrc'))
-    .pipe($.jshint.reporter('default'))
+    // .pipe($.jshint('.jshintrc'))
+    // .pipe($.jshint.reporter('default'))
     .pipe(gulp.dest('dist/scripts'))
-    .pipe($.size())
+    //.pipe($.size())
     .pipe($.connect.reload());
 
 });
@@ -105,7 +102,7 @@ gulp.task('default', ['clean'], function () {
 // Connect
 gulp.task('connect', $.connect.server({
     root: ['dist'],
-    port: 9000,
+    port: 9002,
     livereload: true
 }));
 
@@ -123,7 +120,7 @@ gulp.task('json', function() {
 
 
 // Watch
-gulp.task('watch', ['html', 'connect'], function () {
+gulp.task('watch', ['html','styles','bower','scripts', 'connect'], function () {
 
     // Watch .json files
     gulp.watch('app/scripts/**/*.json', ['json']);
