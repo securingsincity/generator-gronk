@@ -38,17 +38,31 @@ gulp.task('scripts', function () {
 
 });
 
-///React precomiler
-gulp.task('jsx', function () {
-    return gulp.src('app/scripts/**/*.jsx', {base: 'app/scripts'})
-        .pipe($.react())
-        .pipe($.jshint('.jshintrc'))
-        .pipe($.jshint.reporter('default'))
-        .pipe(gulp.dest('app/scripts'))
-        .pipe($.size())
-        .pipe($.connect.reload());
-    });
+gulp.task('browserify-test', function() {
+  //var testFiles = ['test/react_components/main.js']
+  // Be sure to return the stream
+   //gulp.src(testFiles)
+  return  browserify({
+      entries: ['./test/react_components/main.jsx']
+    })
+    .bundle({debug:true})
+    .pipe(source('app-tests.js'))
+    .pipe(gulp.dest('dist'));
 
+});
+
+gulp.task('test', ['browserify-test'],function() {
+  return gulp.src('dist/app-tests.js')
+  .pipe($.karma({
+    configFile: 'karma.conf.js',
+    action: 'run'
+  }))
+  .on('error', function(err) {
+    // Make sure failed tests cause gulp to exit non-zero
+    console.log(err);
+    throw err;
+  });
+})
 
 
 <% if (includeJade) { %>

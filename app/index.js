@@ -92,10 +92,14 @@ var GrunkGenerator = yeoman.generators.Base.extend({
     this.template('main.scss', 'app/styles/main.scss');
 
     this.copy('index.html', 'app/index.html');
+    this.copy('things.json', 'app/things.json');
     this.copy('react_components/main.jsx', 'app/scripts/react_components/main.jsx');
+    this.bulkDirectory('test', 'test');
     this.copy('app.js', 'app/scripts/app.js');
     this.copy('favicon.ico', 'app/favicon.ico');
     this.copy('bowerrc', '.bowerrc');
+    this.copy('things.json', 'app/things.json');
+    this.copy('karma.conf.js', 'karma.conf.js');
     this.copy('robots.txt', 'app/robots.txt');
 
   },

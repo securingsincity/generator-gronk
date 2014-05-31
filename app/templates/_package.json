@@ -36,7 +36,8 @@
     "gulp-streamify": "0.0.5",
     "gulp-karma": "~0.0.4",
     "reactify": "~0.10.0",
-    "karma": "~0.12.16"
+    "karma": "~0.12.16",
+    "react-test-utils": "0.0.1",
   },
   "browserify": {
     "transform": ["reactify" ]

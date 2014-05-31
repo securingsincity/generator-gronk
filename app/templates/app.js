@@ -1,9 +1,7 @@
 /** @jsx React.DOM */
-var React = require('react'),
-oboe = require('oboe');
+var React = require('react/addons');
+var Main = require('./react_components/main.jsx');
 global.$  = require('jquery');
 
-var Main = require('./react_components/main.jsx')
 
-
-React.renderComponent(<Main />, document.getElementById("content"));
+React.renderComponent(<Main name='Click Me'/>, document.getElementById("content"));
