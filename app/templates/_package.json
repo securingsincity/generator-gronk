@@ -1,6 +1,9 @@
 {
   "name": "<%= _.slugify(projectName) %>",
   "version": "0.0.0",
+  "scripts": {
+    "test": "gulp test"
+  },
   "dependencies": {
     "jquery": "~2.1.0",
     "react": "~0.9.0",
@@ -36,8 +39,10 @@
     "gulp-streamify": "0.0.5",
     "gulp-karma": "~0.0.4",
     "reactify": "~0.10.0",
-    "karma": "~0.12.16",
-    "react-test-utils": "0.0.1",
+    "karma-browserify": "^0.2.1",
+    "karma-jasmine": "^0.1.5",
+    "karma-chrome-launcher": "^0.1.4",
+    "react-test-utils": "0.0.1"
   },
   "browserify": {
     "transform": ["reactify" ]

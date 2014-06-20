@@ -1,6 +1,6 @@
 {
   "name": "generator-gronk",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "GRONK stack generator for YEOMAN",
   "main": "app/index.js",
   "scripts": {
@@ -11,7 +11,11 @@
     "url": "https://github.com/securingsincity/gronk-generator.git"
   },
   "keywords": [
-    "gronk"
+    "gronk",
+    "react",
+    "oboe",
+    "karma",
+    "jasmine"
   ],
   "author": "James Hrisho",
   "license": "MIT",

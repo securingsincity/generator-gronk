@@ -10,96 +10,83 @@ var $ = require('gulp-load-plugins')();
 // Styles
 gulp.task('styles', function () {
     return gulp.src('app/styles/main.scss')
-        .pipe($.sass({
-          includePaths: [
-          'app/bower_components'
-          ],
-          errLogToConsole: true
-        }))
-        .pipe(gulp.dest('dist/styles'))
-        .pipe($.size())
-        .pipe($.connect.reload());
-});
+    .pipe($.sass({
+      includePaths: [
+        'app/bower_components'
+      ],
+      errLogToConsole: true
+    }))
+    .pipe(gulp.dest('dist/styles'))
+    .pipe($.size())
+    .pipe($.connect.reload());
+  });
 <% } %>
 
 
 // Scripts
 gulp.task('scripts', function () {
-    return  browserify({
-      entries: ['./app/scripts/app.js']
-    })
-    .bundle({debug:true})
-    .pipe(source('app.js'))
-    // .pipe($.jshint('.jshintrc'))
-    // .pipe($.jshint.reporter('default'))
-    .pipe(gulp.dest('dist/scripts'))
-    //.pipe($.size())
-    .pipe($.connect.reload());
-
-});
-
-gulp.task('browserify-test', function() {
-  //var testFiles = ['test/react_components/main.js']
-  // Be sure to return the stream
-   //gulp.src(testFiles)
   return  browserify({
-      entries: ['./test/react_components/main.jsx']
-    })
-    .bundle({debug:true})
-    .pipe(source('app-tests.js'))
-    .pipe(gulp.dest('dist'));
+    entries: ['./app/scripts/app.js']
+  })
+  .bundle({debug: true})
+  .pipe(source('app.js'))
+  // .pipe($.jshint('.jshintrc'))
+  // .pipe($.jshint.reporter('default'))
+  .pipe(gulp.dest('dist/scripts'))
+  //.pipe($.size())
+  .pipe($.connect.reload());
 
 });
 
-gulp.task('test', ['browserify-test'],function() {
-  return gulp.src('dist/app-tests.js')
+
+gulp.task('test', function () {
+  return gulp.src('test/**/*.js')
   .pipe($.karma({
     configFile: 'karma.conf.js',
     action: 'run'
   }))
-  .on('error', function(err) {
+  .on('error', function (err) {
     // Make sure failed tests cause gulp to exit non-zero
     console.log(err);
     throw err;
   });
-})
-
+});
 
 <% if (includeJade) { %>
 
 gulp.task('jade', function () {
-    return gulp.src('app/template/*.jade')
-        .pipe($.jade({ pretty: true }))
-        .pipe(gulp.dest('dist'))
-        .pipe($.connect.reload());
-})
+  return gulp.src('app/template/*.jade')
+    .pipe($.jade({ pretty: true }))
+    .pipe(gulp.dest('dist'))
+    .pipe($.connect.reload());
+});
 
 <% } %>
 
 // HTML
 gulp.task('html', function () {
-    return gulp.src('app/*.html')
-        .pipe(gulp.dest('dist'))
-        .pipe($.size())
-        .pipe($.connect.reload());
+  return gulp.src('app/*.html')
+    .pipe(gulp.dest('dist'))
+    .pipe($.size())
+    .pipe($.connect.reload());
 });
 
 // Images
 gulp.task('images', function () {
-    return gulp.src('app/images/**/*')
-        .pipe($.cache($.imagemin({
-            optimizationLevel: 3,
-            progressive: true,
-            interlaced: true
-        })))
-        .pipe(gulp.dest('dist/images'))
-        .pipe($.size())
-        .pipe($.connect.reload());
+  return gulp.src('app/images/**/*')
+    .pipe($.cache($.imagemin({
+      optimizationLevel: 3,
+      progressive: true,
+      interlaced: true
+    })))
+    .pipe(gulp.dest('dist/images'))
+    .pipe($.size())
+    .pipe($.connect.reload());
 });
 
 // Clean
 gulp.task('clean', function () {
-    return gulp.src(['dist/styles', 'dist/scripts', 'dist/images'], {read: false}).pipe($.clean());
+  return gulp.src(['dist/styles', 'dist/scripts', 'dist/images'], {read: false}).pipe($.clean());
 });
 
 // Bundle
@@ -110,59 +97,58 @@ gulp.task('build', ['html',  'images']);
 
 // Default task
 gulp.task('default', ['clean'], function () {
-    gulp.start('build');
+  gulp.start('build');
 });
 
 // Connect
 gulp.task('connect', $.connect.server({
-    root: ['dist'],
-    port: 9002,
-    livereload: true
+  root: ['dist'],
+  port: 9002,
+  livereload: true
 }));
 
 // Bower helper
 gulp.task('bower', function() {
-    gulp.src('app/bower_components/**/*.js', {base: 'app/bower_components'})
-        .pipe(gulp.dest('dist/bower_components/'));
-
+  gulp.src('app/bower_components/**/*.js', {base: 'app/bower_components'})
+    .pipe(gulp.dest('dist/bower_components/'));
 });
 
 gulp.task('json', function() {
     gulp.src('app/scripts/json/**/*.json', {base: 'app/scripts'})
-        .pipe(gulp.dest('dist/scripts/'));
+    .pipe(gulp.dest('dist/scripts/'));
 });
 
 
 // Watch
 gulp.task('watch', ['html','styles','bower','scripts', 'connect'], function () {
 
-    // Watch .json files
-    gulp.watch('app/scripts/**/*.json', ['json']);
+  // Watch .json files
+  gulp.watch('app/scripts/**/*.json', ['json']);
 
-    // Watch .html files
-    gulp.watch('app/*.html', ['html']);
+  // Watch .html files
+  gulp.watch('app/*.html', ['html']);
 
 <% if (includeSass) { %>
-    // Watch .scss files
-    gulp.watch('app/styles/**/*.scss', ['styles']);
+  // Watch .scss files
+  gulp.watch('app/styles/**/*.scss', ['styles']);
 <% } %>
 
 <% if (includeJade) { %>
-    // Watch .jade files
-    gulp.watch('app/template/**/*.jade', ['jade', 'html']);
+  // Watch .jade files
+  gulp.watch('app/template/**/*.jade', ['jade', 'html']);
 <% } %>
 
 <% if (includeCoffeeScript) { %>
-    // Watch .coffeescript files
-    gulp.watch('app/scripts/**/*.coffee', ['coffee', 'scripts']);
+  // Watch .coffeescript files
+  gulp.watch('app/scripts/**/*.coffee', ['coffee', 'scripts']);
 <% } %>
 
-    // Watch .jsx files
-    // gulp.watch('app/scripts/**/*.jsx', ['jsx', 'scripts']);
+  // Watch .jsx files
+  // gulp.watch('app/scripts/**/*.jsx', ['jsx', 'scripts']);
 
-    // Watch .js files
-    gulp.watch(['app/scripts/**/*.js','app/scripts/**/*.jsx'], ['scripts']);
+  // Watch .js files
+  gulp.watch(['app/scripts/**/*.js','app/scripts/**/*.jsx'], ['scripts']);
 
-    // Watch image files
-    gulp.watch('app/images/**/*', ['images']);
+  // Watch image files
+  gulp.watch('app/images/**/*', ['images']);
 });
