@@ -11,7 +11,11 @@ He's a demigod.
 He's Hercules, Dionysus or Percy Jackson. Pretty sure he's all three actually.
 
 ##Getting started
+###From NPM
 
+`npm install -g generator-gronk`
+
+###From Source
 Clone the repo
 
 ```
